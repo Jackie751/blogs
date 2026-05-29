@@ -1,6 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import { BrowserRouter } from 'react-router-dom'
+import App from './App.jsx'
+import './styles/main.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <h1 style={{color:'white'}}>测试成功</h1>
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
 )
