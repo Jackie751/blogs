@@ -113,7 +113,7 @@ export default function Article() {
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #c4503a; border-radius: 4px; }
         ::-webkit-scrollbar-button { display: none; height: 0; }
-        .art-wrap{background:#0e0c0a;min-height:100vh;color:#e8ddd0;font-family:'Noto Serif SC',serif;font-weight:600;line-height:1.95;font-size:17px;}
+        .art-wrap{background:#0e0c0a;min-height:100vh;color:#e8ddd0;font-family:'Noto Serif SC',serif;user-select: none; cursor: default;font-weight:600;line-height:1.95;font-size:17px;}
         .art-inner{max-width:720px;margin:0 auto;padding:80px 32px 120px;}
         .art-back{display:inline-flex;align-items:center;gap:6px;font-family:'Noto Sans SC',sans-serif;font-size:11px;letter-spacing:.15em;color:#7a6e63;text-transform:uppercase;cursor:pointer;border:none;background:transparent;margin-bottom:40px;padding:0;transition:color .2s;}
         .art-back:hover{color:#c4503a;}
