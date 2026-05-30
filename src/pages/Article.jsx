@@ -109,7 +109,7 @@ function ArticleDefault({ meta, content, folder, navigate }) {
             </div>
           )}
           <div dangerouslySetInnerHTML={{ __html: parseMarkdown(content) }} />
-          <div className="art-end">{meta.date} · {folder || meta.category}<br/>Please credit when sharing.</div>
+          <div className="art-end">{meta.date} · {folder || meta.category}<br/>转载请注明出处.</div>
         </div>
         {showTop && (
           <button onClick={() => window.scrollTo({top:0, behavior:'smooth'})}
