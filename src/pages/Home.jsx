@@ -39,14 +39,18 @@ const ZINDEX  = { center: 5, left1: 4, right1: 4, left2: 3, right2: 3, hidden: 1
 
 function Card({ a, ac, isHovered, isCurrent, navigate, mobile }) {
   return (
-    <div style={{
-      borderRadius: 4,
-      overflow: 'hidden',
-      background: '#060608',
-      transition: 'transform .4s, box-shadow .4s',
-      transform: isHovered ? 'translateY(-8px)' : 'none',
-      boxShadow: isHovered ? `0 48px 96px rgba(0,0,0,.95)` : '0 24px 64px rgba(0,0,0,.7)',
-    }}>
+    <div
+      onClick={() => navigate(`/article/${a.folder}/${a.id}`)}
+      style={{
+        borderRadius: 4,
+        overflow: 'hidden',
+        background: '#060608',
+        transition: 'transform .4s, box-shadow .4s',
+        transform: isHovered ? 'translateY(-8px)' : 'none',
+        boxShadow: isHovered ? `0 48px 96px rgba(0,0,0,.95)` : '0 24px 64px rgba(0,0,0,.7)',
+        cursor: 'pointer',
+        userSelect: 'none',
+      }}>
       {a.cover ? (
         <div style={{position:'relative', width:'100%', paddingTop: mobile ? '125%' : '145%', overflow:'hidden'}}>
           <img src={a.cover} alt="" style={{
@@ -161,7 +165,7 @@ export default function Home() {
   const [search, setSearch]     = useState('')
   const [cur, setCur]           = useState(0)
   const [hovered, setHovered]   = useState(null)
-  const [searchOpen, setSearchOpen] = useState(false)
+  // searchOpen removed
 
   useEffect(() => {
     fetch(`${RAW}/index.json?t=${Date.now()}`)
@@ -259,7 +263,7 @@ export default function Home() {
       <div style={{display:'flex',alignItems:'center',padding:'18px 48px',borderBottom:'1px solid rgba(255,255,255,0.05)',flexShrink:0,zIndex:20}}>
         <div style={{display:'flex',alignItems:'baseline',gap:16}}>
           <div style={{fontFamily:"'Noto Serif SC',serif",fontSize:28,fontWeight:700,color:'#f0e8d8',letterSpacing:'-.01em'}}>Welcome</div>
-          <div style={{fontFamily:'monospace',fontSize:12,color:'rgba(255,255,255,0.5)',letterSpacing:'.15em'}}>PERSONAL WRITING</div>
+          <div style={{fontFamily:'monospace',fontSize:12,color:'rgba(255,255,255,0.5)',letterSpacing:'.15em'}}>Impressive Memories</div>
         </div>
 
         {/* 分类 - 放顶栏中间 */}
