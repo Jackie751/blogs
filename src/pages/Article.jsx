@@ -5,7 +5,6 @@ const RAW = 'https://raw.githubusercontent.com/Jackie751/articles/refs/heads/mai
 
 function parseMarkdown(md) {
   if (!md) return ''
-  // 去掉 frontmatter
   md = md.replace(/^---\n.*?\n---\n/s, '')
   const lines = md.split('\n')
   const html = []
@@ -56,13 +55,13 @@ export default function Article() {
   const [meta, setMeta] = useState({})
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
+  const [showTop, setShowTop] = useState(false)
 
   useEffect(() => {
     const path = folder ? `${folder}/${id}.md` : `${id}.md`
     fetch(`${RAW}/${path}?t=${Date.now()}`)
       .then(r => { if (!r.ok) throw new Error(); return r.text() })
       .then(text => {
-        // 解析 frontmatter
         const fm = {}
         const m = text.match(/^---\n(.*?)\n---\n/s)
         if (m) {
@@ -79,6 +78,12 @@ export default function Article() {
       })
       .catch(() => { setError(true); setLoading(false) })
   }, [folder, id])
+
+  useEffect(() => {
+    const fn = () => setShowTop(window.scrollY > 300)
+    window.addEventListener('scroll', fn)
+    return () => window.removeEventListener('scroll', fn)
+  }, [])
 
   if (loading) return (
     <div style={{minHeight:'100vh',background:'#0e0c0a',display:'flex',alignItems:'center',justifyContent:'center'}}>
@@ -99,6 +104,7 @@ export default function Article() {
     <>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;700&family=Noto+Sans+SC:wght@300;400&display=swap');
+        body { overflow-y: scroll; }
         .art-wrap{background:#0e0c0a;min-height:100vh;color:#e8ddd0;font-family:'Noto Serif SC',serif;font-weight:300;line-height:1.95;font-size:17px;}
         .art-inner{max-width:720px;margin:0 auto;padding:80px 32px 120px;}
         .art-back{display:inline-flex;align-items:center;gap:6px;font-family:'Noto Sans SC',sans-serif;font-size:11px;letter-spacing:.15em;color:#7a6e63;text-transform:uppercase;cursor:pointer;border:none;background:transparent;margin-bottom:40px;padding:0;transition:color .2s;}
@@ -140,11 +146,13 @@ export default function Article() {
           <div dangerouslySetInnerHTML={{ __html: parseMarkdown(content) }} />
           <div className="art-end">{meta.date} · {folder || meta.category}<br/>转载请注明出处</div>
         </div>
-        <button
-          onClick={() => window.scrollTo({top:0, behavior:'smooth'})}
-          style={{position:'fixed',right:24,bottom:32,width:40,height:40,borderRadius:'50%',background:'#c4503a',border:'none',color:'#fff',fontSize:18,cursor:'pointer',boxShadow:'0 4px 16px rgba(196,80,58,0.4)',zIndex:100}}>
-          ↑
-        </button>
+        {showTop && (
+          <button
+            onClick={() => window.scrollTo({top:0, behavior:'smooth'})}
+            style={{position:'fixed',right:24,bottom:32,width:40,height:40,borderRadius:'50%',background:'#c4503a',border:'none',color:'#fff',fontSize:18,cursor:'pointer',boxShadow:'0 4px 16px rgba(196,80,58,0.4)',zIndex:100,display:'flex',alignItems:'center',justifyContent:'center'}}>
+            ↑
+          </button>
+        )}
       </div>
     </>
   )
