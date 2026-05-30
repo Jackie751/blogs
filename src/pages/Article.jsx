@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import ArticleTegami from './ArticleTegami.jsx'
+import LikeComment from './LikeComment.jsx'
 
 const RAW = 'https://raw.githubusercontent.com/Jackie751/articles/refs/heads/main'
 
@@ -110,6 +111,7 @@ function ArticleDefault({ meta, content, folder, navigate }) {
           )}
           <div dangerouslySetInnerHTML={{ __html: parseMarkdown(content) }} />
           <div className="art-end">{meta.date} · {folder || meta.category}<br/>转载请注明出处.</div>
+          <LikeComment articleId={id} accentColor="#c4503a" dark={true} />
         </div>
         {showTop && (
           <button onClick={() => window.scrollTo({top:0, behavior:'smooth'})}
