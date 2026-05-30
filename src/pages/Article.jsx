@@ -12,6 +12,10 @@ function parseMarkdown(md) {
   let i = 0
   while (i < lines.length) {
     const line = lines[i]
+    // 单独一行的 # 忽略
+    if (line.trim() === '#') { i++; continue }
+    // 底部 Obsidian 内联标签 #xxx 忽略
+    if (/^(#[\S]+\s*)+$/.test(line.trim())) { i++; continue }
     if (/^---+$/.test(line.trim())) {
       html.push('<div class="art-divider">· · ·</div>')
       i++; continue
@@ -59,6 +63,7 @@ function ArticleDefault({ meta, content, folder, navigate }) {
   }, [])
 
   const tags = meta.tags ? meta.tags.split(',').map(t => t.trim()).filter(Boolean) : []
+  const dateStr = meta.date ? new Date(meta.date + 'T00:00:00').toLocaleDateString('en-US', {month:'long', year:'numeric'}) : ''
 
   return (
     <>
@@ -95,7 +100,7 @@ function ArticleDefault({ meta, content, folder, navigate }) {
       <div className="art-wrap">
         <div className="art-inner">
           <button className="art-back" onClick={() => navigate('/')}>← Back</button>
-          <div className="art-eyebrow">{folder || meta.category} · {meta.date}</div>
+          <div className="art-eyebrow">{folder || meta.category} · {dateStr}</div>
           <h1 className="art-title">{meta.title}</h1>
           {meta.subtitle && <div className="art-subtitle">{meta.subtitle}</div>}
           {tags.length > 0 && (
@@ -133,12 +138,22 @@ export default function Article() {
         const fm = {}
         const m = text.match(/^---\n(.*?)\n---\n/s)
         if (m) {
-          for (const line of m[1].split('\n')) {
-            if (line.includes(':')) {
+          const fmLines = m[1].split('\n')
+          let inTags = false
+          const tagList = []
+          for (const line of fmLines) {
+            if (/^tags\s*:\s*$/.test(line)) { inTags = true; continue }
+            if (inTags && /^\s+-\s+(.+)/.test(line)) {
+              tagList.push(line.match(/^\s+-\s+(.+)/)[1].trim())
+              continue
+            }
+            if (inTags && line.trim() && !line.startsWith(' ')) inTags = false
+            if (!inTags && line.includes(':')) {
               const [k, ...v] = line.split(':')
               fm[k.trim()] = v.join(':').trim()
             }
           }
+          if (tagList.length) fm.tags = tagList.join(',')
         }
         setMeta(fm)
         setContent(text)
