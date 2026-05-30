@@ -136,6 +136,7 @@ export default function Article() {
         ::-webkit-scrollbar-track { background: #1a1512; }
         ::-webkit-scrollbar-thumb { background: #c4503a; border-radius: 3px; }
         ::-webkit-scrollbar-thumb:hover { background: #e05a42; }
+        ::-webkit-scrollbar-button { display: none; }
         ::selection{background:rgba(196,80,58,0.3);}
         @media(max-width:768px){.art-inner{padding:40px 20px 80px;}.art-title{font-size:24px;}}
       `}</style>
