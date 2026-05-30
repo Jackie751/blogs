@@ -80,9 +80,16 @@ export default function Article() {
   }, [folder, id])
 
   useEffect(() => {
-    const fn = () => setShowTop(window.scrollY > 300)
-    window.addEventListener('scroll', fn)
-    return () => window.removeEventListener('scroll', fn)
+    const fn = () => {
+      const scrolled = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop
+      setShowTop(scrolled > 300)
+    }
+    window.addEventListener('scroll', fn, { passive: true })
+    document.addEventListener('scroll', fn, { passive: true })
+    return () => {
+      window.removeEventListener('scroll', fn)
+      document.removeEventListener('scroll', fn)
+    }
   }, [])
 
   if (loading) return (
@@ -104,7 +111,7 @@ export default function Article() {
     <>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;700&family=Noto+Sans+SC:wght@300;400&display=swap');
-        body { overflow-y: scroll; }
+        html, body { overflow-y: scroll !important; height: auto !important; }
         .art-wrap{background:#0e0c0a;min-height:100vh;color:#e8ddd0;font-family:'Noto Serif SC',serif;font-weight:300;line-height:1.95;font-size:17px;}
         .art-inner{max-width:720px;margin:0 auto;padding:80px 32px 120px;}
         .art-back{display:inline-flex;align-items:center;gap:6px;font-family:'Noto Sans SC',sans-serif;font-size:11px;letter-spacing:.15em;color:#7a6e63;text-transform:uppercase;cursor:pointer;border:none;background:transparent;margin-bottom:40px;padding:0;transition:color .2s;}
@@ -125,7 +132,7 @@ export default function Article() {
         .art-divider{text-align:center;color:#7a6e63;margin:52px 0;font-size:18px;letter-spacing:.5em;opacity:.4;}
         .art-end{font-family:'Noto Sans SC',sans-serif;font-size:13px;color:#7a6e63;text-align:center;margin-top:80px;padding-top:32px;border-top:1px solid rgba(255,255,255,0.06);line-height:2;}
         html { scrollbar-width: thin; scrollbar-color: #c4503a #1a1512; }
-        ::-webkit-scrollbar { width: 8px; display: block; }
+        ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #1a1512; }
         ::-webkit-scrollbar-thumb { background: #c4503a; border-radius: 3px; }
         ::-webkit-scrollbar-thumb:hover { background: #e05a42; }
