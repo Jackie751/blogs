@@ -118,6 +118,11 @@ export default function Article() {
         .art-img{display:block;width:100%;border-radius:8px;margin:24px 0;border:1px solid rgba(196,80,58,0.15);}
         .art-divider{text-align:center;color:#7a6e63;margin:52px 0;font-size:18px;letter-spacing:.5em;opacity:.4;}
         .art-end{font-family:'Noto Sans SC',sans-serif;font-size:13px;color:#7a6e63;text-align:center;margin-top:80px;padding-top:32px;border-top:1px solid rgba(255,255,255,0.06);line-height:2;}
+        html { scrollbar-width: thin; scrollbar-color: #c4503a #1a1512; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #1a1512; }
+        ::-webkit-scrollbar-thumb { background: #c4503a; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #e05a42; }
         ::selection{background:rgba(196,80,58,0.3);}
         @media(max-width:768px){.art-inner{padding:40px 20px 80px;}.art-title{font-size:24px;}}
       `}</style>
@@ -135,6 +140,10 @@ export default function Article() {
           <div dangerouslySetInnerHTML={{ __html: parseMarkdown(content) }} />
           <div className="art-end">{meta.date} · {folder || meta.category}<br/>转载请注明出处</div>
         </div>
+        <button
+          onClick={() => window.scrollTo({top:0, behavior:'smooth'})}
+          style={{position:'fixed',right:24,bottom:32,width:40,height:40,borderRadius:'50%',background:'#c4503a',border:'none',color:'#fff',fontSize:18,cursor:'pointer',boxShadow:'0 4px 16px rgba(196,80,58,0.4)',zIndex:100}}>
+        </button>
       </div>
     </>
   )
