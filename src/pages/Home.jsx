@@ -214,9 +214,6 @@ export default function Home() {
                 style={{fontFamily:'monospace',fontSize:12,color:'rgba(255,255,255,0.3)',textDecoration:'none',letterSpacing:'.1em'}}>HOME</a>
             </div>
           </div>
-          {searchOpen && (
-            <input value={search} onChange={e => setSearch(e.target.value)} placeholder="搜索..."
-              style={{width:'100%',padding:'8px 0',background:'transparent',border:'none',borderBottom:'1px solid rgba(255,255,255,0.35)',color:'#e8ddd0',fontFamily:"'Noto Serif SC',serif",fontSize:14,outline:'none',boxSizing:'border-box'}} />
           )}
         </div>
 
@@ -285,8 +282,8 @@ export default function Home() {
         </div>
 
         <div style={{display:'flex',alignItems:'center',gap:24}}>
-          {searchOpen ? (
-            <input value={search} onChange={e=>{setSearch(e.target.value);setCur(0)}} placeholder="搜索..." autoFocus
+          <input value={search} onChange={e=>{setSearch(e.target.value);setCur(0)}} placeholder="搜索..."
+            style={{background:'transparent',border:'none',borderBottom:'1px solid rgba(255,255,255,0.2)',color:'#e8ddd0',fontFamily:"'Noto Serif SC',serif",fontSize:13,outline:'none',width:160,paddingBottom:2}} />
               onBlur={()=>!search&&setSearchOpen(false)}
               style={{background:'transparent',border:'none',borderBottom:'1px solid rgba(255,255,255,0.5)',color:'#e8ddd0',fontFamily:"'Noto Serif SC',serif",fontSize:13,outline:'none',width:160,paddingBottom:2}} />
           ) : (
