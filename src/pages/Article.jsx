@@ -131,12 +131,11 @@ export default function Article() {
         .art-img{display:block;width:100%;border-radius:8px;margin:24px 0;border:1px solid rgba(196,80,58,0.15);}
         .art-divider{text-align:center;color:#7a6e63;margin:52px 0;font-size:18px;letter-spacing:.5em;opacity:.4;}
         .art-end{font-family:'Noto Sans SC',sans-serif;font-size:13px;color:#7a6e63;text-align:center;margin-top:80px;padding-top:32px;border-top:1px solid rgba(255,255,255,0.06);line-height:2;}
-        html { scrollbar-width: thin; scrollbar-color: #c4503a #1a1512; }
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #1a1512; }
-        ::-webkit-scrollbar-thumb { background: #c4503a; border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: #e05a42; }
-        ::-webkit-scrollbar-button { display: none; }
+        html { scrollbar-width: thin; scrollbar-color: #c4503a transparent; }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #c4503a; border-radius: 4px; }
+        ::-webkit-scrollbar-button { display: none; height: 0; }
         ::selection{background:rgba(196,80,58,0.3);}
         @media(max-width:768px){.art-inner{padding:40px 20px 80px;}.art-title{font-size:24px;}}
       `}</style>
