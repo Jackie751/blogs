@@ -2,14 +2,21 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const RAW = 'https://raw.githubusercontent.com/Jackie751/articles/refs/heads/main'
-const COLORS = { '影评': '#ff6eb4', '随笔': '#ffd166', '分析': '#00e5ff', '其他': '#b47eff' }
+
 const CATS = [
-  { key: 'all', label: '全部' },
-  { key: '影评', label: '🎬 影评' },
-  { key: '随笔', label: '✍️ 随笔' },
-  { key: '分析', label: '🔍 分析' },
-  { key: '其他', label: '📄 其他' },
+  { key: 'all',     label: '全部',      color: '#00e5ff' },
+  { key: 'Opinion', label: '📢 Opinion', color: '#ff6eb4' },
+  { key: 'Journal', label: '🎬 Journal', color: '#ffd166' },
+  { key: 'Focus',   label: '📚 Focus',   color: '#00e5ff' },
+  { key: 'Ideas',   label: '💡 Ideas',   color: '#b47eff' },
 ]
+
+const COLORS = {
+  Opinion: '#ff6eb4',
+  Journal: '#ffd166',
+  Focus:   '#00e5ff',
+  Ideas:   '#b47eff',
+}
 
 const IS_MOBILE = window.innerWidth <= 768
 
@@ -60,7 +67,7 @@ export default function Home() {
   })
 
   const visible = articles.filter(a => {
-    const tOk = tab === 'all' || a.category === tab
+    const tOk = tab === 'all' || a.folder === tab || a.category === tab
     const mOk = mon === 'all' || (a.date || '').startsWith(mon)
     const sOk = !search || (a.title || '').toLowerCase().includes(search.toLowerCase())
     return tOk && mOk && sOk
@@ -72,7 +79,7 @@ export default function Home() {
   }
 
   const months = [...new Set(articles.map(a => (a.date || '').slice(0,7)).filter(Boolean))].sort().reverse()
-  const count  = k => k === 'all' ? articles.length : articles.filter(a => a.category === k).length
+  const count  = k => k === 'all' ? articles.length : articles.filter(a => a.folder === k || a.category === k).length
 
   return (
     <div style={{display:'flex',flexDirection:'column',height:'100vh',background:'#080b12',color:'#ccd6f0',fontFamily:"'Noto Sans SC',sans-serif",fontSize:14}}>
@@ -103,7 +110,7 @@ export default function Home() {
         <div style={{display:'flex',gap:8,padding:'8px 28px',flexWrap:'wrap',alignItems:'center'}}>
           {CATS.map(c => (
             <button key={c.key} onClick={() => { setTab(c.key); setCur(0) }}
-              style={{padding:'3px 12px',border:`1px solid ${tab===c.key?'#00e5ff':'rgba(40,55,90,0.7)'}`,color:tab===c.key?'#00e5ff':'#4a5878',background:tab===c.key?'rgba(0,229,255,.07)':'transparent',borderRadius:20,cursor:'pointer',fontSize:10,fontFamily:'monospace',letterSpacing:'.08em'}}>
+              style={{padding:'3px 12px',border:`1px solid ${tab===c.key ? c.color : 'rgba(40,55,90,0.7)'}`,color:tab===c.key ? c.color : '#4a5878',background:tab===c.key ? `${c.color}15` : 'transparent',borderRadius:20,cursor:'pointer',fontSize:10,fontFamily:'monospace',letterSpacing:'.08em'}}>
               {c.label} ({count(c.key)})
             </button>
           ))}
@@ -135,7 +142,7 @@ export default function Home() {
         <div style={{position:'relative',width:'100%',height:'100%',display:'flex',alignItems:'center',justifyContent:'center',transformStyle:'preserve-3d'}}>
           {visible.map((a, i) => {
             const state = IS_MOBILE ? 'center' : getState(i, cur, visible.length)
-            const ac = COLORS[a.category] || '#00e5ff'
+            const ac = COLORS[a.folder] || COLORS[a.category] || '#00e5ff'
             const isExp = !!expanded[a.id]
             return (
               <div key={a.id}
@@ -155,7 +162,7 @@ export default function Home() {
                 }}>
                 <div style={{background:'rgba(14,18,32,0.92)',borderRadius:14,border:'1px solid rgba(40,55,90,0.7)',borderTop:`3px solid ${ac}`,boxShadow:'0 16px 56px rgba(0,0,0,.6)',display:'flex',flexDirection:'column',overflow:'hidden'}}>
                   <div style={{display:'flex',alignItems:'center',gap:10,padding:'12px 18px',background:'rgba(20,26,44,0.95)',borderBottom:'1px solid rgba(40,55,90,0.7)',flexShrink:0}}>
-                    <span style={{fontFamily:'monospace',fontSize:10,padding:'2px 10px',borderRadius:20,border:`1px solid ${ac}`,color:ac}}>{a.category || '文章'}</span>
+                    <span style={{fontFamily:'monospace',fontSize:10,padding:'2px 10px',borderRadius:20,border:`1px solid ${ac}`,color:ac}}>{a.folder || a.category || '文章'}</span>
                     <span style={{fontFamily:'monospace',fontSize:10,color:'#4a5878'}}>{(a.date||'').replace(/-/g,' // ')}</span>
                   </div>
                   <h2 style={{padding:'14px 18px 6px',fontSize:16,fontWeight:700,lineHeight:1.4,flexShrink:0,fontFamily:"'Noto Serif SC',serif"}}>{a.title}</h2>
@@ -170,7 +177,7 @@ export default function Home() {
                       <span style={{display:'inline-block',transform:isExp?'rotate(180deg)':'none',transition:'transform .3s',fontSize:10}}>▾</span>
                     </button>
                     <div style={{width:1,height:30,background:'rgba(40,55,90,0.7)'}} />
-                    <button onClick={() => navigate(`/article/${a.id}`)}
+                    <button onClick={() => navigate(`/article/${a.folder}/${a.id}`)}
                       style={{flex:1,padding:'8px 0',background:'transparent',border:'none',color:ac,fontFamily:'monospace',fontSize:11,letterSpacing:'.08em',cursor:'pointer'}}>
                       阅读全文 →
                     </button>
