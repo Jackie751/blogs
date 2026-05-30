@@ -54,7 +54,7 @@ function parseMarkdown(md) {
   return html.join('\n')
 }
 
-function ArticleDefault({ meta, content, folder, navigate }) {
+function ArticleDefault({ meta, content, folder, navigate, id }) {
   const [showTop, setShowTop] = useState(false)
 
   useEffect(() => {
@@ -181,5 +181,5 @@ export default function Article() {
     return <ArticleTegami meta={meta} content={content} folder={folder} />
   }
 
-  return <ArticleDefault meta={meta} content={content} folder={folder} navigate={navigate} />
-}
+    return <ArticleDefault meta={meta} content={content} folder={folder} navigate={navigate} id={id} />
+  }
