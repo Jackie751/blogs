@@ -9,7 +9,7 @@ export default function App() {
     <React.Suspense fallback={null}>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/article/:id" element={<Article />} />
+        <Route path="/article/:folder/:id" element={<Article />} />
       </Routes>
     </React.Suspense>
   )
