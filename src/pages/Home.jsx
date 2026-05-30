@@ -28,15 +28,15 @@ function getState(i, cur, total) {
 
 const TRANSFORMS = {
   center:  'translateX(0) scale(1) rotateY(0deg)',
-  left1:   'translateX(-60%) scale(.82) rotateY(22deg)',
-  right1:  'translateX(60%) scale(.82) rotateY(-22deg)',
-  left2:   'translateX(-85%) scale(.66) rotateY(32deg)',
-  right2:  'translateX(85%) scale(.66) rotateY(-32deg)',
+  left1:   'translateX(-55%) scale(.8) rotateY(20deg)',
+  right1:  'translateX(55%) scale(.8) rotateY(-20deg)',
+  left2:   'translateX(-80%) scale(.62) rotateY(30deg)',
+  right2:  'translateX(80%) scale(.62) rotateY(-30deg)',
   hidden:  'translateX(0) scale(0)',
 }
 const OPACITY = { center: 1, left1: .5, right1: .5, left2: .2, right2: .2, hidden: 0 }
 const ZINDEX  = { center: 5, left1: 4, right1: 4, left2: 3, right2: 3, hidden: 1 }
-const FILTER  = { center: 'none', left1: 'brightness(.6)', right1: 'brightness(.6)', left2: 'brightness(.4)', right2: 'brightness(.4)', hidden: 'none' }
+const FILTER  = { center: 'none', left1: 'brightness(.5)', right1: 'brightness(.5)', left2: 'brightness(.3)', right2: 'brightness(.3)', hidden: 'none' }
 
 export default function Home() {
   const navigate = useNavigate()
@@ -155,89 +155,89 @@ export default function Home() {
                 onMouseLeave={() => setHovered(null)}
                 style={{
                   position: IS_MOBILE ? 'relative' : 'absolute',
-                  width:'clamp(360px,68vw,860px)',
+                  width: 'clamp(260px, 32vw, 420px)',
                   transition:'transform .55s cubic-bezier(.4,0,.2,1),opacity .45s,filter .45s',
                   transform: IS_MOBILE ? 'none' : TRANSFORMS[state],
                   opacity: IS_MOBILE ? 1 : OPACITY[state],
                   zIndex: IS_MOBILE ? 1 : ZINDEX[state],
                   filter: IS_MOBILE ? 'none' : FILTER[state],
                   cursor: state === 'center' ? 'default' : 'pointer',
-                  borderRadius:16,
+                  borderRadius: 16,
                   display: IS_MOBILE && state === 'hidden' ? 'none' : 'block',
                 }}>
 
                 <div style={{
-                  borderRadius:16,
-                  overflow:'hidden',
-                  boxShadow: isHovered ? `0 32px 80px rgba(0,0,0,.9), 0 0 60px ${ac}33` : '0 20px 60px rgba(0,0,0,.7)',
-                  transition:'box-shadow .3s, transform .3s',
-                  transform: isHovered ? 'translateY(-4px)' : 'none',
-                  position:'relative',
+                  borderRadius: 16,
+                  overflow: 'hidden',
+                  boxShadow: isHovered ? `0 40px 100px rgba(0,0,0,.9), 0 0 60px ${ac}44` : '0 20px 60px rgba(0,0,0,.8)',
+                  transition: 'box-shadow .3s, transform .3s',
+                  transform: isHovered ? 'translateY(-6px)' : 'none',
+                  background: '#0a0d18',
+                  position: 'relative',
                 }}>
-                  {/* 封面图区域 */}
-                  <div style={{position:'relative',width:'100%',height: a.cover ? 460 : 0,overflow:'hidden',background:'#0e1020'}}>
-                    {a.cover && (
-                      <>
-                        <img src={a.cover} alt="" style={{
-                          width:'100%', height:'100%', objectFit:'cover', display:'block',
-                          transition:'transform .5s', transform: isHovered ? 'scale(1.05)' : 'scale(1)',
-                        }} />
-                        {/* 渐变遮罩 */}
-                        <div style={{position:'absolute',inset:0,background:'linear-gradient(to bottom, rgba(0,0,0,0) 30%, rgba(8,11,18,0.95) 100%)'}} />
-                      </>
-                    )}
 
-                    {/* 标签浮在图片左上角 */}
-                    {a.cover && (
-                      <div style={{position:'absolute',top:16,left:16,display:'flex',gap:6,flexWrap:'wrap'}}>
+                  {/* 封面图 */}
+                  {a.cover ? (
+                    <div style={{position:'relative',width:'100%',paddingTop:'130%',overflow:'hidden'}}>
+                      <img src={a.cover} alt="" style={{
+                        position:'absolute',inset:0,width:'100%',height:'100%',
+                        objectFit:'cover',display:'block',
+                        transition:'transform .5s',
+                        transform: isHovered ? 'scale(1.06)' : 'scale(1)',
+                      }} />
+                      {/* 底部渐变 */}
+                      <div style={{position:'absolute',inset:0,background:'linear-gradient(to bottom, transparent 40%, rgba(8,11,18,0.98) 100%)'}} />
+
+                      {/* 顶部标签 */}
+                      <div style={{position:'absolute',top:14,left:14,display:'flex',gap:6,flexWrap:'wrap'}}>
                         {isCurrent && (
                           <span style={{fontFamily:'monospace',fontSize:9,padding:'3px 10px',borderRadius:4,background:ac,color:'#000',fontWeight:700,letterSpacing:'.1em'}}>
                             LATEST POST
                           </span>
                         )}
-                        <span style={{fontFamily:'monospace',fontSize:9,padding:'3px 10px',borderRadius:4,background:'rgba(0,0,0,0.6)',color:ac,border:`1px solid ${ac}66`,backdropFilter:'blur(8px)',letterSpacing:'.08em'}}>
+                        <span style={{fontFamily:'monospace',fontSize:9,padding:'3px 10px',borderRadius:4,background:'rgba(0,0,0,0.55)',color:ac,border:`1px solid ${ac}55`,backdropFilter:'blur(8px)',letterSpacing:'.08em'}}>
                           {a.folder || a.category}
                         </span>
                       </div>
-                    )}
 
-                    {/* 阅读时间浮在图片右上角 */}
-                    {a.cover && a.read_time && (
-                      <div style={{position:'absolute',top:16,right:16,fontFamily:'monospace',fontSize:9,padding:'3px 10px',borderRadius:4,background:'rgba(0,0,0,0.6)',color:'#ccd6f0',backdropFilter:'blur(8px)'}}>
-                        ⏱ {a.read_time} min
+                      {/* 阅读时间 */}
+                      {a.read_time && (
+                        <div style={{position:'absolute',top:14,right:14,fontFamily:'monospace',fontSize:9,padding:'3px 10px',borderRadius:4,background:'rgba(0,0,0,0.55)',color:'#ccd6f0',backdropFilter:'blur(8px)'}}>
+                          ⏱ {a.read_time} min
+                        </div>
+                      )}
+
+                      {/* 标题叠在图片底部 */}
+                      <div style={{position:'absolute',bottom:0,left:0,right:0,padding:'16px 18px'}}>
+                        <div style={{fontFamily:'monospace',fontSize:9,color:'#6a7a9a',marginBottom:6,letterSpacing:'.1em'}}>
+                          {(a.date||'').replace(/-/g,' // ')}
+                        </div>
+                        <h2 style={{fontSize:16,fontWeight:700,lineHeight:1.4,color:'#f0e8d8',margin:0,fontFamily:"'Noto Serif SC',serif"}}>
+                          {a.title}
+                        </h2>
                       </div>
-                    )}
-                  </div>
-
-                  {/* 卡片底部内容 */}
-                  <div style={{background:'rgba(10,13,24,0.97)',borderTop: a.cover ? 'none' : `3px solid ${ac}`,padding:'20px 22px 0'}}>
-
-                    {/* 无封面时显示顶部信息 */}
-                    {!a.cover && (
-                      <div style={{display:'flex',alignItems:'center',gap:10,marginBottom:12}}>
-                        <span style={{fontFamily:'monospace',fontSize:10,padding:'2px 10px',borderRadius:20,border:`1px solid ${ac}`,color:ac}}>{a.folder || a.category}</span>
-                        <span style={{fontFamily:'monospace',fontSize:10,color:'#4a5878'}}>{(a.date||'').replace(/-/g,' // ')}</span>
-                        {a.read_time && <span style={{fontFamily:'monospace',fontSize:10,color:'#4a5878',marginLeft:'auto'}}>⏱ {a.read_time} min</span>}
+                    </div>
+                  ) : (
+                    /* 无封面时 */
+                    <div style={{borderTop:`3px solid ${ac}`,padding:'18px 18px 0'}}>
+                      <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:12}}>
+                        <span style={{fontFamily:'monospace',fontSize:9,padding:'2px 8px',borderRadius:20,border:`1px solid ${ac}`,color:ac}}>{a.folder || a.category}</span>
+                        <span style={{fontFamily:'monospace',fontSize:9,color:'#4a5878'}}>{(a.date||'').replace(/-/g,' // ')}</span>
+                        {a.read_time && <span style={{fontFamily:'monospace',fontSize:9,color:'#4a5878',marginLeft:'auto'}}>⏱ {a.read_time} min</span>}
                       </div>
-                    )}
+                      <h2 style={{fontSize:16,fontWeight:700,lineHeight:1.4,color:'#f0e8d8',marginBottom:8,fontFamily:"'Noto Serif SC',serif"}}>
+                        {a.title}
+                      </h2>
+                    </div>
+                  )}
 
-                    {/* 有封面时日期在标题上方 */}
-                    {a.cover && (
-                      <div style={{fontFamily:'monospace',fontSize:10,color:'#4a5878',marginBottom:8,letterSpacing:'.1em'}}>
-                        {(a.date||'').replace(/-/g,' // ')}
-                      </div>
-                    )}
-
-                    {/* 标题 */}
-                    <h2 style={{fontSize:18,fontWeight:700,lineHeight:1.4,color:'#f0e8d8',marginBottom:10,fontFamily:"'Noto Serif SC',serif",letterSpacing:'.01em'}}>
-                      {a.title}
-                    </h2>
-
+                  {/* 底部内容 */}
+                  <div style={{padding: a.cover ? '0 18px 0' : '0 18px 0'}}>
                     {/* 标签 */}
                     {a.tags?.length > 0 && (
-                      <div style={{display:'flex',gap:6,marginBottom:10,flexWrap:'wrap'}}>
+                      <div style={{display:'flex',gap:5,padding:'10px 0 8px',flexWrap:'wrap'}}>
                         {a.tags.map(t => (
-                          <span key={t} style={{fontFamily:'monospace',fontSize:9,padding:'2px 8px',borderRadius:20,border:`1px solid ${ac}44`,color:`${ac}cc`,letterSpacing:'.05em'}}>
+                          <span key={t} style={{fontFamily:'monospace',fontSize:9,padding:'2px 7px',borderRadius:20,border:`1px solid ${ac}44`,color:`${ac}cc`,letterSpacing:'.05em'}}>
                             {t}
                           </span>
                         ))}
@@ -245,14 +245,14 @@ export default function Home() {
                     )}
 
                     {/* 摘要 */}
-                    <p style={{fontSize:13,color:'#7a8aaa',lineHeight:1.8,margin:'0 0 16px',display:'-webkit-box',WebkitLineClamp:2,WebkitBoxOrient:'vertical',overflow:'hidden',fontFamily:"'Noto Serif SC',serif",fontWeight:300}}>
+                    <p style={{fontSize:12,color:'#6a7a9a',lineHeight:1.8,margin:'8px 0 0',display:'-webkit-box',WebkitLineClamp:3,WebkitBoxOrient:'vertical',overflow:'hidden',fontFamily:"'Noto Serif SC',serif",fontWeight:300}}>
                       {a.excerpt}
                     </p>
 
-                    {/* 按钮行 */}
-                    <div style={{display:'flex',borderTop:'1px solid rgba(40,55,90,0.5)',margin:'0 -22px'}}>
+                    {/* 阅读按钮 */}
+                    <div style={{borderTop:'1px solid rgba(40,55,90,0.4)',margin:'12px -18px 0'}}>
                       <button onClick={() => navigate(`/article/${a.folder}/${a.id}`)}
-                        style={{flex:1,padding:'12px 0',background:'transparent',border:'none',color:ac,fontFamily:'monospace',fontSize:11,letterSpacing:'.1em',cursor:'pointer',transition:'background .2s'}}
+                        style={{width:'100%',padding:'11px 0',background:'transparent',border:'none',color:ac,fontFamily:'monospace',fontSize:11,letterSpacing:'.1em',cursor:'pointer',transition:'background .2s'}}
                         onMouseEnter={e => e.currentTarget.style.background=`${ac}10`}
                         onMouseLeave={e => e.currentTarget.style.background='transparent'}>
                         阅读全文 →
