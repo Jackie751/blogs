@@ -209,7 +209,7 @@ export default function Home() {
       <div style={{display:'flex',alignItems:'center',padding:'18px 48px',borderBottom:'1px solid rgba(255,255,255,0.05)',flexShrink:0,zIndex:20}}>
         <div style={{display:'flex',alignItems:'baseline',gap:16}}>
           <div style={{fontFamily:"'Noto Serif SC',serif",fontSize:22,fontWeight:700,color:'#f0e8d8',letterSpacing:'-.01em'}}>Welcome</div>
-          <div style={{fontFamily:'monospace',fontSize:11,color:'rgba(255,255,255,0.35)',letterSpacing:'.15em'}}>Impressive Memories</div>
+          <div style={{fontFamily:'monospace',fontSize:11,color:'rgba(255,255,255,0.35)',letterSpacing:'.15em'}}>To Share Impressive Memories</div>
         </div>
 
         <div style={{margin:'0 auto',display:'flex',gap:44,alignItems:'center'}}>
