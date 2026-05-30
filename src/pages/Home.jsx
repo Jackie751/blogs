@@ -131,8 +131,10 @@ export default function Home() {
       <div style={{flex:1,position:'relative',overflow:'hidden',display:'flex',alignItems:'center',justifyContent:'center',perspective:1400}}>
         {loading && <p style={{color:'#4a5878',fontFamily:'monospace',fontSize:12}}>LOADING...</p>}
         {!loading && visible.length === 0 && (
-          <p style={{color:'#4a5878',fontFamily:'monospace',fontSize:12}}>找不到文章</p>
-        )}
+          <div style={{position:'absolute',inset:0,display:'flex',alignItems:'center',justifyContent:'center'}}>
+            <p style={{color:'#4a5878',fontFamily:'monospace',fontSize:12}}>找不到文章</p>
+          </div>
+       )}
 
         <button onClick={() => move(-1)} disabled={visible.length <= 1}
           style={{position:'absolute',left:0,top:'50%',transform:'translateY(-50%)',zIndex:30,width:44,height:100,background:'rgba(8,11,18,.6)',border:'1px solid rgba(40,55,90,0.7)',color:'#4a5878',fontSize:24,cursor:'pointer',borderRadius:'0 10px 10px 0',display:'flex',alignItems:'center',justifyContent:'center',opacity:visible.length<=1?.15:1}}>
