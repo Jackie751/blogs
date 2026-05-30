@@ -88,7 +88,7 @@ export default function Home() {
       <div style={{display:'flex',alignItems:'center',gap:14,padding:'10px 28px',background:'rgba(20,26,44,0.95)',borderBottom:'1px solid rgba(40,55,90,0.7)',flexShrink:0,backdropFilter:'blur(12px)',zIndex:20}}>
         <div style={{width:7,height:7,borderRadius:'50%',background:'#00e5ff',boxShadow:'0 0 8px #00e5ff',flexShrink:0}} />
         <div>
-          <div style={{fontSize:17,fontWeight:900,background:'linear-gradient(270deg,#00e5ff,#ff6eb4,#ffd166,#b47eff,#00e5ff)',backgroundSize:'400% 400%',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent'}}>柒安的小窝</div>
+          <div style={{fontSize:17,fontWeight:900,background:'linear-gradient(270deg,#00e5ff,#ff6eb4,#ffd166,#b47eff,#00e5ff)',backgroundSize:'400% 400%',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent'}}>柒安的文章</div>
           <div style={{fontFamily:'monospace',fontSize:10,color:'#4a5878',letterSpacing:'.15em'}}>ARTICLES // PERSONAL BLOG</div>
         </div>
         <div style={{marginLeft:'auto',display:'flex',gap:10,alignItems:'center'}}>
@@ -155,7 +155,7 @@ export default function Home() {
                 onMouseLeave={() => setHovered(null)}
                 style={{
                   position: IS_MOBILE ? 'relative' : 'absolute',
-                  width:'clamp(300px,55vw,680px)',
+                  width:'clamp(360px,68vw,860px)',
                   transition:'transform .55s cubic-bezier(.4,0,.2,1),opacity .45s,filter .45s',
                   transform: IS_MOBILE ? 'none' : TRANSFORMS[state],
                   opacity: IS_MOBILE ? 1 : OPACITY[state],
@@ -175,7 +175,7 @@ export default function Home() {
                   position:'relative',
                 }}>
                   {/* 封面图区域 */}
-                  <div style={{position:'relative',width:'100%',height: a.cover ? 340 : 0,overflow:'hidden',background:'#0e1020'}}>
+                  <div style={{position:'relative',width:'100%',height: a.cover ? 460 : 0,overflow:'hidden',background:'#0e1020'}}>
                     {a.cover && (
                       <>
                         <img src={a.cover} alt="" style={{
