@@ -39,7 +39,7 @@ export default function App() {
   const [expanded, setExpanded] = useState({})
 
   useEffect(() => {
-    fetch('https://raw.githubusercontent.com/Jackie751/articles/main/index.json?t=' + Date.now())
+    fetch('https://raw.githubusercontent.com/Jackie751/articles/refs/heads/main/index.json?t=' + Date.now())
       .then(r => r.json())
       .then(d => { setArticles(d); setLoading(false) })
       .catch(() => setLoading(false))
