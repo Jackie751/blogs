@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import LikeComment from './LikeComment.jsx'
 
 function parseMarkdown(md) {
   if (!md) return ''
@@ -114,6 +115,7 @@ export default function ArticleTegami({ meta, content, folder }) {
           <hr className="tg-rule" />
           <div dangerouslySetInnerHTML={{ __html: parseMarkdown(content) }} />
           <div className="tg-end">{meta.date}<br/>{folder || meta.category}<br/>Please credit when sharing.</div>
+          <LikeComment articleId={id} accentColor="#8b7355" dark={false} />
         </div>
         {showTop && (
           <button style={{position:'fixed',right:24,bottom:32,width:38,height:38,borderRadius:'50%',background:'#8b7355',border:'none',color:'#faf7f2',fontSize:16,cursor:'pointer',boxShadow:'0 4px 16px rgba(139,115,85,0.35)',zIndex:100,display:'flex',alignItems:'center',justifyContent:'center'}}
