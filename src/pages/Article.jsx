@@ -143,6 +143,7 @@ export default function Article() {
         <button
           onClick={() => window.scrollTo({top:0, behavior:'smooth'})}
           style={{position:'fixed',right:24,bottom:32,width:40,height:40,borderRadius:'50%',background:'#c4503a',border:'none',color:'#fff',fontSize:18,cursor:'pointer',boxShadow:'0 4px 16px rgba(196,80,58,0.4)',zIndex:100}}>
+          ↑
         </button>
       </div>
     </>
