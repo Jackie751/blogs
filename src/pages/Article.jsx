@@ -119,7 +119,7 @@ export default function Article() {
         .art-divider{text-align:center;color:#7a6e63;margin:52px 0;font-size:18px;letter-spacing:.5em;opacity:.4;}
         .art-end{font-family:'Noto Sans SC',sans-serif;font-size:13px;color:#7a6e63;text-align:center;margin-top:80px;padding-top:32px;border-top:1px solid rgba(255,255,255,0.06);line-height:2;}
         html { scrollbar-width: thin; scrollbar-color: #c4503a #1a1512; }
-        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar { width: 8px; display: block; }
         ::-webkit-scrollbar-track { background: #1a1512; }
         ::-webkit-scrollbar-thumb { background: #c4503a; border-radius: 3px; }
         ::-webkit-scrollbar-thumb:hover { background: #e05a42; }
