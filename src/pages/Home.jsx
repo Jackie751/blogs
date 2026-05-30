@@ -169,7 +169,15 @@ export default function Home() {
           <div style={{display:'flex',alignItems:'flex-end',justifyContent:'space-between',marginBottom:14}}>
             <div>
               <div style={{fontFamily:"'Noto Serif SC',serif",fontSize:26,fontWeight:700,color:'#f0e8d8',letterSpacing:'-.01em',lineHeight:1}}>Welcome</div>
-              <div style={{fontFamily:'monospace',fontSize:11,color:'rgba(255,255,255,0.35)',letterSpacing:'.15em'}}>{new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}).toUpperCase()}</div>
+              <div style={{
+                fontFamily: 'monospace',
+                fontSize: 9,
+                color: 'rgba(255,255,255,0.35)',
+                letterSpacing: '.12em',
+                marginTop: 4
+              }}>
+                {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }).toUpperCase()}
+              </div>
             </div>
             <a href="https://index.jackie3137.xyz" target="_blank" rel="noopener"
               style={{fontFamily:'monospace',fontSize:11,color:'rgba(255,255,255,0.45)',textDecoration:'none',letterSpacing:'.12em'}}>HOME</a>
