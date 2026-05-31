@@ -216,7 +216,7 @@ export default function Home() {
 
       <div style={{display:'flex',alignItems:'center',padding:'18px 48px',borderBottom:'1px solid rgba(255,255,255,0.05)',flexShrink:0,zIndex:20}}>
         <div style={{display:'flex',alignItems:'baseline',gap:16}}>
-          <div style={{fontFamily:"'SlideYouran',sans-serif",fontSize:22,fontWeight:700,color:'#f0e8d8',letterSpacing:'-.01em'}}>Welcome</div>
+          <div style={{fontFamily:"'SlideYouran',sans-serif",fontSize:28,fontWeight:700,color:'#f0e8d8',letterSpacing:'-.01em'}}>Welcome</div>
           <div style={{fontFamily:"'SlideYouran',sans-serif",fontSize:15,color:'rgba(255,255,255,0.35)',letterSpacing:'.15em'}}>{new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}).toUpperCase()}</div>
         </div>
 
