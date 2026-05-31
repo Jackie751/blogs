@@ -28,10 +28,10 @@ function getState(i, cur, total) {
 
 const TRANSFORMS = {
   center:  'translateX(0) scale(1)',
-  left1:   'translateX(-58%) scale(.78)',
-  right1:  'translateX(58%) scale(.78)',
-  left2:   'translateX(-82%) scale(.60)',
-  right2:  'translateX(82%) scale(.60)',
+  left1:   'translateX(-62%) scale(.72)',
+  right1:  'translateX(62%) scale(.72)',
+  left2:   'translateX(-88%) scale(.54)',
+  right2:  'translateX(88%) scale(.54)',
   hidden:  'translateX(0) scale(0)',
 }
 const OPACITY = { center: 1, left1: .35, right1: .35, left2: .12, right2: .12, hidden: 0 }
@@ -42,7 +42,7 @@ function Card({ a, ac, isHovered, isCurrent, navigate }) {
     <div
       onClick={() => navigate(`/article/${a.folder}/${a.id}`)}
       style={{
-        borderRadius: 4,
+        borderRadius: 20,
         overflow: 'hidden',
         background: '#060608',
         transition: 'transform .4s, box-shadow .4s',
@@ -63,42 +63,42 @@ function Card({ a, ac, isHovered, isCurrent, navigate }) {
 
           <div style={{position:'absolute',top:16,left:16,display:'flex',gap:8,alignItems:'center'}}>
             {isCurrent && (
-              <span style={{fontFamily:'monospace',fontSize:11,padding:'3px 8px',letterSpacing:'.12em',background:'rgba(255,255,255,0.12)',color:'rgba(255,255,255,0.8)',backdropFilter:'blur(8px)',borderRadius:2}}>
+              <span style={{fontFamily:"'SlideYouran',sans-serif",fontSize:12,padding:'3px 8px',letterSpacing:'.12em',background:'rgba(255,255,255,0.12)',color:'rgba(255,255,255,0.8)',backdropFilter:'blur(8px)',borderRadius:2}}>
                 LATEST
               </span>
             )}
-            <span style={{fontFamily:'monospace',fontSize:11,padding:'3px 8px',letterSpacing:'.12em',color:ac,background:`${ac}18`,backdropFilter:'blur(8px)',borderRadius:2}}>
+            <span style={{fontFamily:"'SlideYouran',sans-serif",fontSize:12,padding:'3px 8px',letterSpacing:'.12em',color:ac,background:`${ac}18`,backdropFilter:'blur(8px)',borderRadius:2}}>
               {(a.folder||a.category||'').toUpperCase()}
             </span>
           </div>
 
           {a.read_time && (
-            <div style={{position:'absolute',top:16,right:16,fontFamily:'monospace',fontSize:11,color:'rgba(255,255,255,0.5)',letterSpacing:'.1em'}}>
+            <div style={{position:'absolute',top:16,right:16,fontFamily:"'SlideYouran',sans-serif",fontSize:12,color:'rgba(255,255,255,0.5)',letterSpacing:'.1em'}}>
               {a.read_time} MIN
             </div>
           )}
 
-          <div style={{position:'absolute',bottom:0,left:0,right:0,padding:'0 20px 0'}}>
-            <div style={{fontFamily:'monospace',fontSize:11,color:'rgba(255,255,255,0.4)',letterSpacing:'.12em',marginBottom:8}}>
+          <div style={{position:'absolute',bottom:'8%',left:0,right:0,padding:'0 20px 0'}}>
+            <div style={{fontFamily:"'SlideYouran',sans-serif",fontSize:12,color:'rgba(255,255,255,0.4)',letterSpacing:'.12em',marginBottom:8}}>
               {(a.date||'').replace(/-/g,' · ')}
             </div>
-            <h2 style={{fontSize:20,fontWeight:700,lineHeight:1.3,color:'#fff',margin:'0 0 10px',fontFamily:"'Noto Serif SC',serif",letterSpacing:'.01em'}}>
+            <h2 style={{fontSize:24,fontWeight:700,lineHeight:1.3,color:'#fff',margin:'0 0 10px',fontFamily:"'SlideYouran',sans-serif",letterSpacing:'.01em'}}>
               {a.title}
             </h2>
             {a.tags?.length > 0 && (
               <div style={{display:'flex',gap:8,marginBottom:10,flexWrap:'wrap'}}>
                 {a.tags.slice(0,3).map(t => (
-                  <span key={t} style={{fontFamily:'monospace',fontSize:11,color:'rgba(255,255,255,0.45)',letterSpacing:'.08em'}}>
+                  <span key={t} style={{fontFamily:"'SlideYouran',sans-serif",fontSize:12,color:'rgba(255,255,255,0.45)',letterSpacing:'.08em'}}>
                     #{t}
                   </span>
                 ))}
               </div>
             )}
-            <p style={{fontSize:12,color:'rgba(255,255,255,0.45)',lineHeight:1.8,margin:0,display:'-webkit-box',WebkitLineClamp:2,WebkitBoxOrient:'vertical',overflow:'hidden',fontFamily:"'Noto Serif SC',serif",fontWeight:300}}>
+            <p style={{fontSize:14,color:'rgba(255,255,255,0.45)',lineHeight:1.8,margin:0,display:'-webkit-box',WebkitLineClamp:2,WebkitBoxOrient:'vertical',overflow:'hidden',fontFamily:"'SlideYouran',sans-serif",fontWeight:300}}>
               {a.excerpt}
             </p>
             <div style={{margin:'14px -20px 0',borderTop:'1px solid rgba(255,255,255,0.06)'}}>
-              <div style={{width:'100%',padding:'12px 0',textAlign:'center',color:'rgba(255,255,255,0.5)',fontFamily:'monospace',fontSize:11,letterSpacing:'.2em'}}>
+              <div style={{width:'100%',padding:'12px 0',textAlign:'center',color:'rgba(255,255,255,0.5)',fontFamily:"'SlideYouran',sans-serif",fontSize:12,letterSpacing:'.2em'}}>
                 READ →
               </div>
             </div>
@@ -106,13 +106,13 @@ function Card({ a, ac, isHovered, isCurrent, navigate }) {
         </div>
       ) : (
         <div style={{padding:'28px 20px 0',borderTop:`1px solid ${ac}44`}}>
-          <div style={{fontFamily:'monospace',fontSize:11,color:'rgba(255,255,255,0.35)',letterSpacing:'.12em',marginBottom:12}}>
+          <div style={{fontFamily:"'SlideYouran',sans-serif",fontSize:12,color:'rgba(255,255,255,0.35)',letterSpacing:'.12em',marginBottom:12}}>
             {(a.folder||'').toUpperCase()} · {(a.date||'').replace(/-/g,' · ')}
           </div>
-          <h2 style={{fontSize:18,fontWeight:700,lineHeight:1.3,color:'#e8ddd0',margin:'0 0 10px',fontFamily:"'Noto Serif SC',serif"}}>{a.title}</h2>
-          <p style={{fontSize:12,color:'rgba(255,255,255,0.35)',lineHeight:1.8,margin:0,display:'-webkit-box',WebkitLineClamp:3,WebkitBoxOrient:'vertical',overflow:'hidden'}}>{a.excerpt}</p>
+          <h2 style={{fontSize:22,fontWeight:700,lineHeight:1.3,color:'#e8ddd0',margin:'0 0 10px',fontFamily:"'SlideYouran',sans-serif"}}>{a.title}</h2>
+          <p style={{fontSize:14,color:'rgba(255,255,255,0.35)',lineHeight:1.8,margin:0,display:'-webkit-box',WebkitLineClamp:3,WebkitBoxOrient:'vertical',overflow:'hidden'}}>{a.excerpt}</p>
           <div style={{margin:'14px -20px 0',borderTop:'1px solid rgba(255,255,255,0.06)'}}>
-            <div style={{width:'100%',padding:'12px 0',textAlign:'center',color:'rgba(255,255,255,0.4)',fontFamily:'monospace',fontSize:11,letterSpacing:'.2em'}}>
+            <div style={{width:'100%',padding:'12px 0',textAlign:'center',color:'rgba(255,255,255,0.4)',fontFamily:"'SlideYouran',sans-serif",fontSize:12,letterSpacing:'.2em'}}>
               READ →
             </div>
           </div>
@@ -164,13 +164,13 @@ export default function Home() {
 
   if (IS_MOBILE) {
     return (
-      <div style={{background:'#060608',minHeight:'100vh',color:'#e8ddd0',fontFamily:"'Noto Sans SC',sans-serif"}}>
+      <div style={{background:'#060608',minHeight:'100vh',color:'#e8ddd0',fontFamily:"'SlideYouran',sans-serif"}}>
         <div style={{padding:'20px 20px 14px',borderBottom:'1px solid rgba(255,255,255,0.06)',position:'sticky',top:0,zIndex:20,background:'#060608'}}>
           <div style={{display:'flex',alignItems:'flex-end',justifyContent:'space-between',marginBottom:14}}>
             <div>
-              <div style={{fontFamily:"'Noto Serif SC',serif",fontSize:26,fontWeight:700,color:'#f0e8d8',letterSpacing:'-.01em',lineHeight:1}}>Welcome</div>
+              <div style={{fontFamily:"'SlideYouran',sans-serif",fontSize:26,fontWeight:700,color:'#f0e8d8',letterSpacing:'-.01em',lineHeight:1}}>Welcome</div>
               <div style={{
-                fontFamily: 'monospace',
+                fontFamily: "'SlideYouran',sans-serif",
                 fontSize: 9,
                 color: 'rgba(255,255,255,0.35)',
                 letterSpacing: '.12em',
@@ -180,28 +180,28 @@ export default function Home() {
               </div>
             </div>
             <a href="https://index.jackie3137.xyz" target="_blank" rel="noopener"
-              style={{fontFamily:'monospace',fontSize:11,color:'rgba(255,255,255,0.45)',textDecoration:'none',letterSpacing:'.12em'}}>HOME</a>
+              style={{fontFamily:"'SlideYouran',sans-serif",fontSize:11,color:'rgba(255,255,255,0.45)',textDecoration:'none',letterSpacing:'.12em'}}>HOME</a>
           </div>
           <input value={search} onChange={e => setSearch(e.target.value)} placeholder="搜索文章..."
-            style={{width:'100%',padding:'8px 0',background:'transparent',border:'none',borderBottom:'1px solid rgba(255,255,255,0.12)',color:'#e8ddd0',fontFamily:"'Noto Serif SC',serif",fontSize:14,outline:'none',boxSizing:'border-box'}} />
+            style={{width:'100%',padding:'8px 0',background:'transparent',border:'none',borderBottom:'1px solid rgba(255,255,255,0.12)',color:'#e8ddd0',fontFamily:"'SlideYouran',sans-serif",fontSize:14,outline:'none',boxSizing:'border-box'}} />
         </div>
 
         <div style={{padding:'12px 20px',display:'flex',gap:24,overflowX:'auto',scrollbarWidth:'none',borderBottom:'1px solid rgba(255,255,255,0.04)'}}>
           {CATS.map(c => (
             <button key={c.key} onClick={() => setTab(c.key)}
-              style={{background:'none',border:'none',cursor:'pointer',fontFamily:'monospace',fontSize:11,letterSpacing:'.15em',color:tab===c.key?'#fff':'rgba(255,255,255,0.35)',borderBottom:tab===c.key?'1px solid rgba(255,255,255,0.6)':'1px solid transparent',paddingBottom:4,whiteSpace:'nowrap',flexShrink:0,transition:'color .2s'}}>
+              style={{background:'none',border:'none',cursor:'pointer',fontFamily:"'SlideYouran',sans-serif",fontSize:11,letterSpacing:'.15em',color:tab===c.key?'#fff':'rgba(255,255,255,0.35)',borderBottom:tab===c.key?'1px solid rgba(255,255,255,0.6)':'1px solid transparent',paddingBottom:4,whiteSpace:'nowrap',flexShrink:0,transition:'color .2s'}}>
               {c.label}
             </button>
           ))}
         </div>
 
-        <div style={{padding:'10px 20px',fontFamily:'monospace',fontSize:11,color:'rgba(255,255,255,0.2)',letterSpacing:'.12em',borderBottom:'1px solid rgba(255,255,255,0.04)'}}>
+        <div style={{padding:'10px 20px',fontFamily:"'SlideYouran',sans-serif",fontSize:11,color:'rgba(255,255,255,0.2)',letterSpacing:'.12em',borderBottom:'1px solid rgba(255,255,255,0.04)'}}>
           {visible.length} ARTICLES
         </div>
 
         <div style={{padding:'20px',display:'flex',flexDirection:'column',gap:20}}>
-          {loading && <p style={{color:'rgba(255,255,255,0.2)',fontFamily:'monospace',fontSize:11,textAlign:'center',padding:'60px 0',letterSpacing:'.2em'}}>LOADING</p>}
-          {!loading && visible.length === 0 && <p style={{color:'rgba(255,255,255,0.2)',fontFamily:'monospace',fontSize:11,textAlign:'center',padding:'60px 0',letterSpacing:'.2em'}}>NO ARTICLES</p>}
+          {loading && <p style={{color:'rgba(255,255,255,0.2)',fontFamily:"'SlideYouran',sans-serif",fontSize:11,textAlign:'center',padding:'60px 0',letterSpacing:'.2em'}}>LOADING</p>}
+          {!loading && visible.length === 0 && <p style={{color:'rgba(255,255,255,0.2)',fontFamily:"'SlideYouran',sans-serif",fontSize:11,textAlign:'center',padding:'60px 0',letterSpacing:'.2em'}}>NO ARTICLES</p>}
           {visible.map(a => {
             const ac = COLORS[a.folder]||COLORS[a.category]||'#fff'
             return <Card key={a.id} a={a} ac={ac} isHovered={false} isCurrent={false} navigate={navigate} />
@@ -212,29 +212,29 @@ export default function Home() {
   }
 
   return (
-    <div style={{display:'flex',flexDirection:'column',height:'100vh',background:'#060608',color:'#e8ddd0',fontFamily:"'Noto Sans SC',sans-serif"}}>
+    <div style={{display:'flex',flexDirection:'column',height:'100vh',background:'#060608',color:'#e8ddd0',fontFamily:"'SlideYouran',sans-serif"}}>
 
       <div style={{display:'flex',alignItems:'center',padding:'18px 48px',borderBottom:'1px solid rgba(255,255,255,0.05)',flexShrink:0,zIndex:20}}>
         <div style={{display:'flex',alignItems:'baseline',gap:16}}>
-          <div style={{fontFamily:"'Noto Serif SC',serif",fontSize:22,fontWeight:700,color:'#f0e8d8',letterSpacing:'-.01em'}}>Welcome</div>
-          <div style={{fontFamily:'monospace',fontSize:11,color:'rgba(255,255,255,0.35)',letterSpacing:'.15em'}}>{new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}).toUpperCase()}</div>
+          <div style={{fontFamily:"'SlideYouran',sans-serif",fontSize:22,fontWeight:700,color:'#f0e8d8',letterSpacing:'-.01em'}}>Welcome</div>
+          <div style={{fontFamily:"'SlideYouran',sans-serif",fontSize:15,color:'rgba(255,255,255,0.35)',letterSpacing:'.15em'}}>{new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}).toUpperCase()}</div>
         </div>
 
         <div style={{margin:'0 auto',display:'flex',gap:44,alignItems:'center'}}>
           {CATS.map(c => (
             <button key={c.key} onClick={()=>{setTab(c.key);setCur(0)}}
-              style={{background:'none',border:'none',cursor:'pointer',fontFamily:'monospace',fontSize:12,letterSpacing:'.15em',color:tab===c.key?'#fff':'rgba(255,255,255,0.45)',borderBottom:tab===c.key?'1px solid rgba(255,255,255,0.6)':'1px solid transparent',paddingBottom:4,transition:'color .2s'}}>
+              style={{background:'none',border:'none',cursor:'pointer',fontFamily:"'SlideYouran',sans-serif",fontSize:15,letterSpacing:'.15em',color:tab===c.key?'#fff':'rgba(255,255,255,0.45)',borderBottom:tab===c.key?'1px solid rgba(255,255,255,0.6)':'1px solid transparent',paddingBottom:4,transition:'color .2s'}}>
               {c.label}
-              <span style={{marginLeft:6,fontSize:10,color:'rgba(255,255,255,0.2)'}}>{count(c.key)}</span>
+              <span style={{marginLeft:6,fontSize:12,color:'rgba(255,255,255,0.2)'}}>{count(c.key)}</span>
             </button>
           ))}
         </div>
 
         <div style={{display:'flex',alignItems:'center',gap:24}}>
           <input value={search} onChange={e=>{setSearch(e.target.value);setCur(0)}} placeholder="搜索..."
-            style={{background:'transparent',border:'none',borderBottom:'1px solid rgba(255,255,255,0.15)',color:'#e8ddd0',fontFamily:"'Noto Serif SC',serif",fontSize:13,outline:'none',width:160,paddingBottom:2}} />
+            style={{background:'transparent',border:'none',borderBottom:'1px solid rgba(255,255,255,0.15)',color:'#e8ddd0',fontFamily:"'SlideYouran',sans-serif",fontSize:15,outline:'none',width:160,paddingBottom:2}} />
           <a href="https://index.jackie3137.xyz" target="_blank" rel="noopener"
-            style={{fontFamily:'monospace',fontSize:12,color:'rgba(255,255,255,0.45)',textDecoration:'none',letterSpacing:'.12em',transition:'color .2s'}}
+            style={{fontFamily:"'SlideYouran',sans-serif",fontSize:15,color:'rgba(255,255,255,0.45)',textDecoration:'none',letterSpacing:'.12em',transition:'color .2s'}}
             onMouseEnter={e=>e.currentTarget.style.color='#fff'}
             onMouseLeave={e=>e.currentTarget.style.color='rgba(255,255,255,0.45)'}>
             HOME
@@ -242,15 +242,15 @@ export default function Home() {
         </div>
       </div>
 
-      <div style={{padding:'8px 48px',fontFamily:'monospace',fontSize:11,color:'rgba(255,255,255,0.2)',letterSpacing:'.15em',flexShrink:0,borderBottom:'1px solid rgba(255,255,255,0.03)'}}>
+      <div style={{padding:'8px 48px',fontFamily:"'SlideYouran',sans-serif",fontSize:13,color:'rgba(255,255,255,0.2)',letterSpacing:'.15em',flexShrink:0,borderBottom:'1px solid rgba(255,255,255,0.03)'}}>
         {visible.length} ARTICLES
       </div>
 
       <div style={{flex:1,position:'relative',overflow:'hidden',display:'flex',alignItems:'center',justifyContent:'center'}}>
-        {loading && <p style={{color:'rgba(255,255,255,0.2)',fontFamily:'monospace',fontSize:11,letterSpacing:'.3em'}}>LOADING</p>}
+        {loading && <p style={{color:'rgba(255,255,255,0.2)',fontFamily:"'SlideYouran',sans-serif",fontSize:11,letterSpacing:'.3em'}}>LOADING</p>}
         {!loading && visible.length===0 && (
           <div style={{position:'absolute',inset:0,display:'flex',alignItems:'center',justifyContent:'center'}}>
-            <p style={{color:'rgba(255,255,255,0.15)',fontFamily:'monospace',fontSize:11,letterSpacing:'.3em'}}>NO ARTICLES</p>
+            <p style={{color:'rgba(255,255,255,0.15)',fontFamily:"'SlideYouran',sans-serif",fontSize:11,letterSpacing:'.3em'}}>NO ARTICLES</p>
           </div>
         )}
 
@@ -270,7 +270,7 @@ export default function Home() {
                 onClick={state!=='center'?()=>setCur(i):undefined}
                 onMouseEnter={()=>state==='center'&&setHovered(a.id)}
                 onMouseLeave={()=>setHovered(null)}
-                style={{position:'absolute',width:'clamp(240px,28vw,380px)',transition:'transform .6s cubic-bezier(.4,0,.2,1),opacity .5s',transform:TRANSFORMS[state],opacity:OPACITY[state],zIndex:ZINDEX[state],cursor:state==='center'?'default':'pointer'}}>
+                style={{position:'absolute',width:'clamp(300px,38vw,500px)',transition:'transform .6s cubic-bezier(.4,0,.2,1),opacity .5s',transform:TRANSFORMS[state],opacity:OPACITY[state],zIndex:ZINDEX[state],cursor:state==='center'?'default':'pointer'}}>
                 <Card a={a} ac={ac} isHovered={isHovered} isCurrent={isCurrent} navigate={navigate} />
               </div>
             )
@@ -290,7 +290,7 @@ export default function Home() {
               style={{width:i===cur%12?24:4,height:2,borderRadius:1,background:i===cur%12?'rgba(255,255,255,0.6)':'rgba(255,255,255,0.12)',border:'none',cursor:'pointer',transition:'all .3s',padding:0}} />
           ))}
         </div>
-        <span style={{fontFamily:'monospace',fontSize:11,color:'rgba(255,255,255,0.2)',letterSpacing:'.15em'}}>
+        <span style={{fontFamily:"'SlideYouran',sans-serif",fontSize:11,color:'rgba(255,255,255,0.2)',letterSpacing:'.15em'}}>
           {visible.length>0?`${String(cur+1).padStart(2,'0')} / ${String(visible.length).padStart(2,'0')}`:''}
         </span>
       </div>

@@ -2,6 +2,55 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import LikeComment from './LikeComment.jsx'
 
+function BgmPlayer({ src, accentColor = '#8b7355' }) {
+  const audioRef = React.useRef(null)
+  const [playing, setPlaying] = useState(false)
+  const [volume, setVolume] = useState(0.6)
+  const [progress, setProgress] = useState(0)
+
+  useEffect(() => {
+    const audio = audioRef.current
+    if (!audio) return
+    audio.volume = volume
+    const onTimeUpdate = () => setProgress(audio.duration ? audio.currentTime / audio.duration : 0)
+    audio.addEventListener('timeupdate', onTimeUpdate)
+    return () => audio.removeEventListener('timeupdate', onTimeUpdate)
+  }, [])
+
+  function togglePlay() {
+    const audio = audioRef.current
+    if (!audio) return
+    if (playing) { audio.pause(); setPlaying(false) }
+    else { audio.play(); setPlaying(true) }
+  }
+
+  function onVolume(e) {
+    const v = parseFloat(e.target.value)
+    setVolume(v)
+    if (audioRef.current) audioRef.current.volume = v
+  }
+
+  function onSeek(e) {
+    const audio = audioRef.current
+    if (!audio || !audio.duration) return
+    audio.currentTime = parseFloat(e.target.value) * audio.duration
+  }
+
+  return (
+    <div style={{position:'fixed',bottom:0,left:0,right:0,zIndex:200,background:'rgba(245,240,232,0.95)',backdropFilter:'blur(16px)',borderTop:`1px solid ${accentColor}44`,padding:'10px 24px',display:'flex',alignItems:'center',gap:16}}>
+      <audio ref={audioRef} src={src} loop />
+      <button onClick={togglePlay} style={{width:36,height:36,borderRadius:'50%',background:accentColor,border:'none',color:'#faf7f2',fontSize:16,cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}}>
+        {playing ? '⏸' : '▶'}
+      </button>
+      <input type="range" min={0} max={1} step={0.01} value={progress} onChange={onSeek}
+        style={{flex:1,height:2,accentColor,cursor:'pointer'}} />
+      <span style={{fontFamily:'monospace',fontSize:10,color:'rgba(60,48,40,0.35)',letterSpacing:'.1em',flexShrink:0}}>BGM</span>
+      <input type="range" min={0} max={1} step={0.01} value={volume} onChange={onVolume}
+        style={{width:72,height:2,accentColor,cursor:'pointer'}} />
+    </div>
+  )
+}
+
 function parseMarkdown(md) {
   if (!md) return ''
   md = md.replace(/^---\n.*?\n---\n/s, '')
@@ -118,12 +167,13 @@ export default function ArticleTegami({ meta, content, folder }) {
           <LikeComment articleId={id} accentColor="#8b7355" dark={false} />
         </div>
         {showTop && (
-          <button style={{position:'fixed',right:24,bottom:32,width:38,height:38,borderRadius:'50%',background:'#8b7355',border:'none',color:'#faf7f2',fontSize:16,cursor:'pointer',boxShadow:'0 4px 16px rgba(139,115,85,0.35)',zIndex:100,display:'flex',alignItems:'center',justifyContent:'center'}}
+          <button style={{position:'fixed',right:24,bottom:meta.bgm?72:32,width:38,height:38,borderRadius:'50%',background:'#8b7355',border:'none',color:'#faf7f2',fontSize:16,cursor:'pointer',boxShadow:'0 4px 16px rgba(139,115,85,0.35)',zIndex:100,display:'flex',alignItems:'center',justifyContent:'center'}}
             onClick={() => window.scrollTo({top:0, behavior:'smooth'})}>
             ↑
           </button>
         )}
       </div>
+      {meta.bgm && <BgmPlayer src={meta.bgm} accentColor="#8b7355" />}
     </>
   )
 }

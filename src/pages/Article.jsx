@@ -54,6 +54,26 @@ function parseMarkdown(md) {
   return html.join('\n')
 }
 
+function BgmButton({ src }) {
+  const audioRef = React.useRef(null)
+  const [playing, setPlaying] = useState(false)
+
+  function togglePlay() {
+    const audio = audioRef.current
+    if (!audio) return
+    if (playing) { audio.pause(); setPlaying(false) }
+    else { audio.play(); setPlaying(true) }
+  }
+
+  return (
+    <span onClick={togglePlay} title={playing ? '暂停 BGM' : '播放 BGM'}
+      style={{position:'fixed',right:24,bottom:84,width:40,height:40,borderRadius:'50%',background:'rgba(196,80,58,0.15)',border:'1px solid rgba(196,80,58,0.4)',display:'flex',alignItems:'center',justifyContent:'center',cursor:'pointer',color:'#c4503a',fontSize:16,zIndex:100,boxShadow:'0 4px 16px rgba(196,80,58,0.2)',transition:'all .2s',opacity:playing?1:0.7}}>
+      <audio ref={audioRef} src={src} loop />
+      {playing ? '⏸' : '♪'}
+    </span>
+  )
+}
+
 function ArticleDefault({ meta, content, folder, navigate, id }) {
   const [showTop, setShowTop] = useState(false)
 
@@ -113,6 +133,7 @@ function ArticleDefault({ meta, content, folder, navigate, id }) {
           <div className="art-end">{meta.date} · {folder || meta.category}<br/>转载请注明出处.</div>
           <LikeComment articleId={id} accentColor="#c4503a" dark={true} />
         </div>
+        {meta.bgm && <BgmButton src={meta.bgm} />}
         {showTop && (
           <button onClick={() => window.scrollTo({top:0, behavior:'smooth'})}
             style={{position:'fixed',right:24,bottom:32,width:40,height:40,borderRadius:'50%',background:'#c4503a',border:'none',color:'#fff',fontSize:18,cursor:'pointer',boxShadow:'0 4px 16px rgba(196,80,58,0.4)',zIndex:100,display:'flex',alignItems:'center',justifyContent:'center'}}>
