@@ -51,6 +51,8 @@ jobs:
   deploy-vps:
     needs: build
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
     steps:
       - name: Download build artifact
         uses: actions/download-artifact@v4
