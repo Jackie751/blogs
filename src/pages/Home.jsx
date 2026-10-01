@@ -38,13 +38,19 @@ const OPACITY = { center: 1, left1: .35, right1: .35, left2: .12, right2: .12, h
 const ZINDEX  = { center: 5, left1: 4, right1: 4, left2: 3, right2: 3, hidden: 1 }
 
 function Card({ a, ac, isHovered, isCurrent, navigate }) {
+  const isTegami = a.template === 'tegami'
+  const cardBackground = isTegami ? '#faf7f2' : '#060608'
+  const cardText = isTegami && !a.cover ? '#2a2018' : '#fff'
+  const cardMuted = isTegami && !a.cover ? 'rgba(61,48,40,0.55)' : 'rgba(255,255,255,0.45)'
+  const cardBorder = isTegami ? '1px solid rgba(139,115,85,0.22)' : 'none'
   return (
     <div
       onClick={() => navigate(`/article/${a.folder}/${a.id}`)}
       style={{
         borderRadius: 20,
         overflow: 'hidden',
-        background: '#060608',
+        background: cardBackground,
+        border: cardBorder,
         transition: 'transform .4s, box-shadow .4s',
         transform: isHovered ? 'translateY(-8px)' : 'none',
         boxShadow: isHovered ? '0 48px 96px rgba(0,0,0,.95)' : '0 24px 64px rgba(0,0,0,.7)',
@@ -59,11 +65,11 @@ function Card({ a, ac, isHovered, isCurrent, navigate }) {
             transition:'transform .6s',
             transform: isHovered ? 'scale(1.04)' : 'scale(1)',
           }} />
-          <div style={{position:'absolute',inset:0,background:'linear-gradient(to bottom, rgba(0,0,0,0) 20%, rgba(6,6,8,0.7) 60%, rgba(6,6,8,0.97) 100%)'}} />
+          <div style={{position:'absolute',inset:0,background:isTegami?'linear-gradient(to bottom, rgba(250,247,242,0) 20%, rgba(42,32,24,0.38) 60%, rgba(42,32,24,0.92) 100%)':'linear-gradient(to bottom, rgba(0,0,0,0) 20%, rgba(6,6,8,0.7) 60%, rgba(6,6,8,0.97) 100%)'}} />
 
           <div style={{position:'absolute',top:16,left:16,display:'flex',gap:8,alignItems:'center'}}>
             {isCurrent && (
-              <span style={{fontFamily:"'SlideYouran',sans-serif",fontSize:12,padding:'3px 8px',letterSpacing:'.12em',background:'rgba(255,255,255,0.12)',color:'rgba(255,255,255,0.8)',backdropFilter:'blur(8px)',borderRadius:2}}>
+                <span style={{fontFamily:"'SlideYouran',sans-serif",fontSize:12,padding:'3px 8px',letterSpacing:'.12em',background:isTegami?'rgba(250,247,242,0.7)':'rgba(255,255,255,0.12)',color:isTegami?'#5c4a32':'rgba(255,255,255,0.8)',backdropFilter:'blur(8px)',borderRadius:2}}>
                 LATEST
               </span>
             )}
@@ -79,16 +85,17 @@ function Card({ a, ac, isHovered, isCurrent, navigate }) {
           )}
 
           <div style={{position:'absolute',bottom:'8%',left:0,right:0,padding:'0 20px 0'}}>
-            <div style={{fontFamily:"'SlideYouran',sans-serif",fontSize:12,color:'rgba(255,255,255,0.4)',letterSpacing:'.12em',marginBottom:8}}>
+            <div style={{fontFamily:"'SlideYouran',sans-serif",fontSize:12,color:isTegami?'rgba(250,247,242,0.7)':'rgba(255,255,255,0.4)',letterSpacing:'.12em',marginBottom:8}}>
               {(a.date||'').replace(/-/g,' · ')}
             </div>
-            <h2 style={{fontSize:24,fontWeight:700,lineHeight:1.3,color:'#fff',margin:'0 0 10px',fontFamily:"'SlideYouran',sans-serif",letterSpacing:'.01em'}}>
+            <h2 style={{fontSize:24,fontWeight:700,lineHeight:1.3,color:cardText,margin:'0 0 10px',fontFamily:"'SlideYouran',sans-serif",letterSpacing:'.01em'}}>
               {a.title}
             </h2>
+            {a.subtitle && <div style={{fontSize:13,color:isTegami?'rgba(250,247,242,0.72)':cardMuted,lineHeight:1.6,margin:'-4px 0 10px',fontWeight:300}}>{a.subtitle}</div>}
             {a.tags?.length > 0 && (
               <div style={{display:'flex',gap:8,marginBottom:10,flexWrap:'wrap'}}>
                 {a.tags.slice(0,3).map(t => (
-                  <span key={t} style={{fontFamily:"'SlideYouran',sans-serif",fontSize:12,color:'rgba(255,255,255,0.45)',letterSpacing:'.08em'}}>
+                  <span key={t} style={{fontFamily:"'SlideYouran',sans-serif",fontSize:12,color:isTegami?'rgba(250,247,242,0.72)':cardMuted,letterSpacing:'.08em'}}>
                     #{t}
                   </span>
                 ))}
@@ -98,7 +105,7 @@ function Card({ a, ac, isHovered, isCurrent, navigate }) {
               {a.excerpt}
             </p>
             <div style={{margin:'14px -20px 0',borderTop:'1px solid rgba(255,255,255,0.06)'}}>
-              <div style={{width:'100%',padding:'12px 0',textAlign:'center',color:'rgba(255,255,255,0.5)',fontFamily:"'SlideYouran',sans-serif",fontSize:12,letterSpacing:'.2em'}}>
+              <div style={{width:'100%',padding:'12px 0',textAlign:'center',color:isTegami?'rgba(250,247,242,0.72)':'rgba(255,255,255,0.5)',fontFamily:"'SlideYouran',sans-serif",fontSize:12,letterSpacing:'.2em'}}>
                 READ →
               </div>
             </div>
@@ -109,8 +116,9 @@ function Card({ a, ac, isHovered, isCurrent, navigate }) {
           <div style={{fontFamily:"'SlideYouran',sans-serif",fontSize:12,color:'rgba(255,255,255,0.35)',letterSpacing:'.12em',marginBottom:12}}>
             {(a.folder||'').toUpperCase()} · {(a.date||'').replace(/-/g,' · ')}
           </div>
-          <h2 style={{fontSize:22,fontWeight:700,lineHeight:1.3,color:'#e8ddd0',margin:'0 0 10px',fontFamily:"'SlideYouran',sans-serif"}}>{a.title}</h2>
-          <p style={{fontSize:14,color:'rgba(255,255,255,0.35)',lineHeight:1.8,margin:0,display:'-webkit-box',WebkitLineClamp:3,WebkitBoxOrient:'vertical',overflow:'hidden'}}>{a.excerpt}</p>
+          <h2 style={{fontSize:22,fontWeight:700,lineHeight:1.3,color:cardText,margin:'0 0 10px',fontFamily:"'SlideYouran',sans-serif"}}>{a.title}</h2>
+          {a.subtitle && <div style={{fontSize:13,color:isTegami?'#8b7355':cardMuted,lineHeight:1.6,margin:'-4px 0 10px'}}>{a.subtitle}</div>}
+          <p style={{fontSize:14,color:cardMuted,lineHeight:1.8,margin:0,display:'-webkit-box',WebkitLineClamp:3,WebkitBoxOrient:'vertical',overflow:'hidden'}}>{a.excerpt}</p>
           <div style={{margin:'14px -20px 0',borderTop:'1px solid rgba(255,255,255,0.06)'}}>
             <div style={{width:'100%',padding:'12px 0',textAlign:'center',color:'rgba(255,255,255,0.4)',fontFamily:"'SlideYouran',sans-serif",fontSize:12,letterSpacing:'.2em'}}>
               READ →

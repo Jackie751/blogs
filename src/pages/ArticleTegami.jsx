@@ -98,7 +98,7 @@ function parseMarkdown(md) {
   return html.join('\n')
 }
 
-export default function ArticleTegami({ meta, content, folder }) {
+export default function ArticleTegami({ meta, content, folder, id }) {
   const navigate = useNavigate()
   const [showTop, setShowTop] = useState(false)
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import ArticleTegami from './ArticleTegami.jsx'
 import LikeComment from './LikeComment.jsx'
+import { ARTICLE_TEMPLATES } from '../templates/index.js'
 
 const RAW = 'https://raw.githubusercontent.com/Jackie751/articles/refs/heads/main'
 
@@ -74,7 +74,7 @@ function BgmButton({ src }) {
   )
 }
 
-function ArticleDefault({ meta, content, folder, navigate, id }) {
+export function ArticleDefault({ meta, content, folder, navigate, id }) {
   const [showTop, setShowTop] = useState(false)
 
   useEffect(() => {
@@ -198,9 +198,6 @@ export default function Article() {
     </div>
   )
 
-  if (meta.template === 'tegami') {
-    return <ArticleTegami meta={meta} content={content} folder={folder} />
-  }
-
-    return <ArticleDefault meta={meta} content={content} folder={folder} navigate={navigate} id={id} />
+  const Template = ARTICLE_TEMPLATES[meta.template] || ARTICLE_TEMPLATES.default
+  return <Template meta={meta} content={content} folder={folder} navigate={navigate} id={id} />
   }
